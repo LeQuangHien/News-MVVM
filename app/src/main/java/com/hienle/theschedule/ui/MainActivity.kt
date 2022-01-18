@@ -1,4 +1,4 @@
-package com.hienle.theschedule
+package com.hienle.theschedule.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,8 +11,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.appcompat.app.AppCompatActivity
+import com.hienle.theschedule.R
 import com.hienle.theschedule.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding.navView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings
+                    R.id.nav_transform, R.id.nav_news, R.id.nav_slideshow, R.id.nav_settings
                 ),
                 binding.drawerLayout
             )
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         binding.appBarMain.contentMain.bottomNavView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow
+                    R.id.nav_transform, R.id.nav_news, R.id.nav_slideshow
                 )
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
