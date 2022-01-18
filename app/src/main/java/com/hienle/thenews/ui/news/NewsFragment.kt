@@ -8,16 +8,16 @@ import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hienle.thenews.databinding.FragmentNewsBinding
-import com.hienle.thenews.databinding.ItemNewsBinding
 import com.hienle.thenews.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -46,25 +46,18 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /* // The expand section event is processed by the UI that
-         // modifies a View's internal state.
-         binding.expandButton.setOnClickListener {
-             binding.expandedSection.visibility = View.VISIBLE
-         }*/
-
-        recyclerViewNews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerViewNews.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         newsAdapter = NewsAdapter(requireContext())
+        val mDividerItemDecoration = DividerItemDecoration(
+            requireContext(),
+            LinearLayoutManager.VERTICAL
+        )
+        recyclerViewNews.addItemDecoration(mDividerItemDecoration)
         recyclerViewNews.adapter = newsAdapter
 
         viewModel.getTopHeadlines()
 
-        // The refresh event is processed by the ViewModel that is in charge
-        // of the business logic.
-      /*  binding.buttonRefresh.setOnClickListener {
-            viewModel.refreshNews(Util.isOnline(requireContext()))
-        }
-*/
         launchAndRepeatWithViewLifecycle {
             launch {
                 viewModel.uiState.collect {
