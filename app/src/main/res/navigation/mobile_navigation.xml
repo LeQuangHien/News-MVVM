@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/nav_transform"
-        android:name="com.hienle.theschedule.ui.transform.TransformFragment"
+        android:name="com.hienle.thenews.ui.transform.TransformFragment"
         android:label="@string/menu_transform"
         tools:layout="@layout/fragment_transform" />
 
     <fragment
         android:id="@+id/nav_news"
-        android:name="com.hienle.theschedule.ui.news.NewsFragment"
+        android:name="com.hienle.thenews.ui.news.NewsFragment"
         android:label="@string/menu_news"
         tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.hienle.theschedule.ui.slideshow.SlideshowFragment"
+        android:name="com.hienle.thenews.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.hienle.theschedule.ui.settings.SettingsFragment"
+        android:name="com.hienle.thenews.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hienle.theschedule">
+    package="com.hienle.thenews">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".ShedApp"
+        android:name="com.hienle.thenews.ShedApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheSchedule">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.hienle.thenews.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:resizeableActivity="true"
