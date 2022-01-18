@@ -2,8 +2,24 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="item_transform_image_length">48dp</dimen>
+    <dimen name="item_news_image_height">48dp</dimen>
+    <dimen name="item_news_image_width">96dp</dimen>
     <dimen name="reflow_text_block_max_percent">1</dimen>
     <dimen name="reflow_text_block_horizontal_gap">8dp</dimen>
     <dimen name="reflow_text_title_size">22sp</dimen>
     <dimen name="reflow_text_description_size">13sp</dimen>
+
+    <dimen name="xsmall_spacing">2dp</dimen>
+    <dimen name="small_spacing">4dp</dimen>
+    <dimen name="normal_spacing">8dp</dimen>
+    <dimen name="large_spacing">16dp</dimen>
+    <dimen name="xlarge_spacing">24dp</dimen>
+    <dimen name="xxlarge_spacing">32dp</dimen>
+
+    <dimen name="space_small">5dp</dimen>
+    <dimen name="space_medium">10dp</dimen>
+    <dimen name="space_large">15dp</dimen>
+    <dimen name="space_xlarge">20dp</dimen>
+    <dimen name="space_xxlarge">25dp</dimen>
+    <dimen name="space_xxxlarge">30dp</dimen>
 </resources>

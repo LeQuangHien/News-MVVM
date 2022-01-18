@@ -1,3 +1,6 @@
 <resources>
     <dimen name="item_transform_image_length">160dp</dimen>
+    <dimen name="item_news_image_height">120dp</dimen>
+    <dimen name="item_news_image_width">240dp</dimen>
+
 </resources>

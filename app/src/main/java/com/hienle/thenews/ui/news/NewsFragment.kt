@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hienle.thenews.databinding.FragmentNewsBinding
+import com.hienle.thenews.databinding.ItemNewsBinding
 import com.hienle.thenews.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -17,12 +22,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = NewsFragment()
-    }
-
     private val viewModel: NewsViewModel by viewModels()
     private var _binding: FragmentNewsBinding? = null
+
+    private lateinit var recyclerViewNews: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var newsAdapter: NewsAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,7 +38,10 @@ class NewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-        return binding.root
+        val root: View = binding.root
+        recyclerViewNews = binding.recyclerviewNews
+        progressBar = binding.progressBar
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,6 +52,10 @@ class NewsFragment : Fragment() {
          binding.expandButton.setOnClickListener {
              binding.expandedSection.visibility = View.VISIBLE
          }*/
+
+        recyclerViewNews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        newsAdapter = NewsAdapter(requireContext())
+        recyclerViewNews.adapter = newsAdapter
 
         viewModel.getTopHeadlines()
 
@@ -57,6 +69,7 @@ class NewsFragment : Fragment() {
             launch {
                 viewModel.uiState.collect {
                     // Update UI elements
+                    newsAdapter.addAll(it.newsItems)
                 }
             }
 
