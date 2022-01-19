@@ -7,6 +7,7 @@ import com.hienle.thenews.ui.state.Message
 import com.hienle.thenews.ui.state.NewsItemUiState
 import com.hienle.thenews.ui.state.NewsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

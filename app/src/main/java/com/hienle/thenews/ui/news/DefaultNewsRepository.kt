@@ -15,13 +15,16 @@ import javax.inject.Inject
  * lequanghien247@gmail.com
  */
 
-@ActivityRetainedScoped
-class NewsRepository @Inject constructor(
+interface NewsRepository {
+    suspend fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>>
+}
+
+class DefaultNewsRepository @Inject constructor(
     private val newsRemoteDataSource: NewsRemoteDataSource,
     private val ioDispatcher: CoroutineDispatcher
-) : BaseApiResponse() {
+) : BaseApiResponse(), NewsRepository {
 
-    suspend fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>> {
+    override suspend fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>> {
         return flow {
             emit(safeApiCall { newsRemoteDataSource.getTopHeadlines() })
         }.flowOn(ioDispatcher)
