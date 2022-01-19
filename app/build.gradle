@@ -111,6 +111,8 @@ dependencies {
     // dependency to appear on your APK"s compile classpath or the test APK
     // classpath.
     androidTestImplementation( "androidx.test.espresso:espresso-idling-resource:$espressoVersion")
+
+    debugImplementation("androidx.fragment:fragment-testing:1.4.0")
 }
 
 kapt {
