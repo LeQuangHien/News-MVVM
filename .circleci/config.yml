@@ -1,34 +1,38 @@
-version: 2
+# .circleci/config.yml
+version: 2.1
+orbs:
+  android: circleci/android@1.0
 jobs:
-  build:
-    working_directory: ~/code
-    docker:
-      - image: circleci/android:api-30-alpha
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    environment:
-      JVM_OPTS: -Xmx3200m
+  test:
+    executor:
+      name: android/android-machine
+      resource-class: large
     steps:
       - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-         command: sudo chmod +x ./gradlew
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: app/build/reports
-          destination: reports
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: app/build/test-results
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
+      # Create an AVD named "myavd"
+      - android/create-avd:
+          avd-name: myavd
+          system-image: system-images;android-29;default;x86
+          install: true
+      # By default, after starting up the emulator, a cache will be restored,
+      # "./gradlew assembleDebugAndroidTest" will be run and then a script
+      # will be run to wait for the emulator to start up.
+      # Specify the "post-emulator-launch-assemble-command" command to override
+      # the gradle command run, or set "wait-for-emulator" to false to disable
+      # waiting for the emulator altogether.
+      - android/start-emulator:
+          avd-name: myavd
+          no-window: true
+          restore-gradle-cache-prefix: v1a
+      # Runs "./gradlew connectedDebugAndroidTest" by default.
+      # Specify the "test-command" parameter to customize the command run.
+      - android/run-tests
+      - android/save-gradle-cache:
+          cache-prefix: v1a
+workflows:
+  test:
+    jobs:
+      - test
