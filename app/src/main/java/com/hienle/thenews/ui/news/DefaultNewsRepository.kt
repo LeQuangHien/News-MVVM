@@ -3,7 +3,6 @@ package com.hienle.thenews.ui.news
 import com.hienle.thenews.api.BaseApiResponse
 import com.hienle.thenews.model.ArticleResponse
 import com.hienle.thenews.result.NetworkResult
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,7 +15,7 @@ import javax.inject.Inject
  */
 
 interface NewsRepository {
-    suspend fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>>
+    fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>>
 }
 
 class DefaultNewsRepository @Inject constructor(
@@ -24,7 +23,7 @@ class DefaultNewsRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : BaseApiResponse(), NewsRepository {
 
-    override suspend fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>> {
+    override fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>> {
         return flow {
             emit(safeApiCall { newsRemoteDataSource.getTopHeadlines() })
         }.flowOn(ioDispatcher)

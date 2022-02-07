@@ -5,14 +5,17 @@
       <map>
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w1240dp/activity_main.xml" value="0.23560910307898258" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w1240dp/app_bar_main.xml" value="0.23560910307898258" />
+        <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w1240dp/content_main.xml" value="0.23560910307898258" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/activity_main.xml" value="0.31040564373897706" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/app_bar_main.xml" value="0.31040564373897706" />
+        <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/content_main.xml" value="0.31040564373897706" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/fragment_news.xml" value="0.31040564373897706" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/fragment_transform.xml" value="0.31040564373897706" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/item_news.xml" value="0.31040564373897706" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout-w600dp/item_transform.xml" value="0.31040564373897706" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout/activity_main.xml" value="0.3070652173913043" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout/app_bar_main.xml" value="0.3070652173913043" />
+        <entry key="..\:/Git2/TheNews/app/src/main/res/layout/content_main.xml" value="0.3087719298245614" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout/fragment_news.xml" value="0.36666666666666664" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout/fragment_transform.xml" value="0.36666666666666664" />
         <entry key="..\:/Git2/TheNews/app/src/main/res/layout/item_news.xml" value="0.36666666666666664" />
