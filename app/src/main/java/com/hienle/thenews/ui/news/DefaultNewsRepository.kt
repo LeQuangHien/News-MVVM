@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 interface NewsRepository {
     fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>>
+    fun getNews(): Flow<NetworkResult<ArticleResponse>>
 }
 
 class DefaultNewsRepository @Inject constructor(
@@ -27,6 +28,10 @@ class DefaultNewsRepository @Inject constructor(
         return flow {
             emit(safeApiCall { newsRemoteDataSource.getTopHeadlines() })
         }.flowOn(ioDispatcher)
+    }
+
+    override fun getNews(): Flow<NetworkResult<ArticleResponse>> {
+        TODO("Not yet implemented")
     }
 }
 
