@@ -2,7 +2,6 @@ package com.hienle.thenews.ui.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hienle.thenews.result.NetworkResult
 import com.hienle.thenews.ui.state.Message
 import com.hienle.thenews.ui.state.NewsItemUiState
 import com.hienle.thenews.ui.state.NewsUiState
@@ -28,42 +27,33 @@ class NewsViewModel @Inject constructor(
     fun getTopHeadlines() {
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
-            newsRepository.getTopHeadlines().collect { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-                        // bind data to the view
-                        if (response.data != null) {
-                            _uiState.update {
-                                val items: List<NewsItemUiState> =
-                                    response.data.articles.map { article ->
-                                        NewsItemUiState(
-                                            source = article.source,
-                                            author = article.author,
-                                            title = article.title,
-                                            description = article.description,
-                                            url = article.url,
-                                            urlToImage = article.urlToImage,
-                                            publishedAt = article.publishedAt,
-                                            content = article.content
-                                        )
-                                    }
-                                it.copy(newsItems = items, isFetchingArticles = false)
+            val result = newsRepository.getTopHeadlines()
+            result.fold(
+                ifLeft = {
+                    _uiState.update {
+                        val messages = listOf(Message(1, "Error getting headlines"))
+                        it.copy(userMessages = messages, isFetchingArticles = false)
+                    }
+                },
+                ifRight = { articleResponse ->
+                    _uiState.update {
+                        val items: List<NewsItemUiState> =
+                            articleResponse.articles.map { article ->
+                                NewsItemUiState(
+                                    source = article.source,
+                                    author = article.author,
+                                    title = article.title,
+                                    description = article.description,
+                                    url = article.url,
+                                    urlToImage = article.urlToImage,
+                                    publishedAt = article.publishedAt,
+                                    content = article.content
+                                )
                             }
-                        }
-                    }
-                    is NetworkResult.Error -> {
-                        _uiState.update {
-                            val messages = listOf(Message(1, response.message.toString()))
-                            it.copy(userMessages = messages, isFetchingArticles = false)
-                        }
-                    }
-                    is NetworkResult.Loading -> {
-                        _uiState.update {
-                            it.copy(isFetchingArticles = true)
-                        }
+                        it.copy(newsItems = items, isFetchingArticles = false)
                     }
                 }
-            }
+            )
         }
     }
 

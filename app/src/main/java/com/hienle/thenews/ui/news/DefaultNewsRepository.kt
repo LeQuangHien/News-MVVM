@@ -1,12 +1,10 @@
 package com.hienle.thenews.ui.news
 
-import com.hienle.thenews.api.BaseApiResponse
+import arrow.core.Either
+import arrow.retrofit.adapter.either.networkhandling.CallError
 import com.hienle.thenews.model.ArticleResponse
-import com.hienle.thenews.result.NetworkResult
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -15,24 +13,19 @@ import javax.inject.Inject
  */
 
 interface NewsRepository {
-    fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>>
-    fun getNews(): Flow<NetworkResult<ArticleResponse>>
+    suspend fun getTopHeadlines(): Either<CallError, ArticleResponse>
 }
 
 class DefaultNewsRepository @Inject constructor(
     private val newsRemoteDataSource: NewsRemoteDataSource,
     private val ioDispatcher: CoroutineDispatcher
-) : BaseApiResponse(), NewsRepository {
+) : NewsRepository {
 
-    override fun getTopHeadlines(): Flow<NetworkResult<ArticleResponse>> {
-        return flow {
-            emit(safeApiCall { newsRemoteDataSource.getTopHeadlines() })
-        }.flowOn(ioDispatcher)
-    }
+    override suspend fun getTopHeadlines(): Either<CallError, ArticleResponse> =
+        withContext(ioDispatcher) {
+            newsRemoteDataSource.getTopHeadlines()
+        }
 
-    override fun getNews(): Flow<NetworkResult<ArticleResponse>> {
-        TODO("Not yet implemented")
-    }
 }
 
 

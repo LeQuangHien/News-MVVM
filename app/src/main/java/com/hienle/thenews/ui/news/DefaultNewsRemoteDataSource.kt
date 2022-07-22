@@ -1,8 +1,9 @@
 package com.hienle.thenews.ui.news
 
+import arrow.core.Either
+import arrow.retrofit.adapter.either.networkhandling.CallError
 import com.hienle.thenews.api.ApiService
 import com.hienle.thenews.model.ArticleResponse
-import retrofit2.Response
 import javax.inject.Inject
 
 /**
@@ -10,7 +11,7 @@ import javax.inject.Inject
  * lequanghien247@gmail.com
  */
 interface NewsRemoteDataSource {
-    suspend fun getTopHeadlines(): Response<ArticleResponse>
+    suspend fun getTopHeadlines(): Either<CallError, ArticleResponse>
 }
 
 class DefaultNewsRemoteDataSource @Inject constructor(

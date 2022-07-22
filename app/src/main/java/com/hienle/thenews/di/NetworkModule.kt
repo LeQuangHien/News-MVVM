@@ -1,5 +1,6 @@
 package com.hienle.thenews.di
 
+import arrow.retrofit.adapter.either.EitherCallAdapterFactory
 import com.google.gson.Gson
 import com.hienle.thenews.BuildConfig
 import com.hienle.thenews.api.ApiService
@@ -72,6 +73,7 @@ class NetworkModule {
             .baseUrl(BuildConfig.SERVER_URL)
             .client(httpClientBuilder.build())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(EitherCallAdapterFactory())
             .build()
     }
 
