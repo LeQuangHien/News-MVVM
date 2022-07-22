@@ -1,10 +1,11 @@
 package com.hienle.thenews.test.util.fakes
 
+import arrow.core.Either
+import arrow.retrofit.adapter.either.networkhandling.CallError
 import com.hienle.thenews.model.Article
 import com.hienle.thenews.model.ArticleResponse
 import com.hienle.thenews.model.Source
 import com.hienle.thenews.ui.news.NewsRemoteDataSource
-import retrofit2.Response
 
 /**
  * Created by Hien Quang Le on 1/19/2022.
@@ -12,7 +13,7 @@ import retrofit2.Response
  */
 
 class FakeNewsRemoteDataSource() : NewsRemoteDataSource {
-    override suspend fun getTopHeadlines(): Response<ArticleResponse> {
+    override suspend fun getTopHeadlines(): Either<CallError, ArticleResponse> {
         val articleResponse = ArticleResponse(
             status = "ok", totalResults = 34,
             listOf(
@@ -28,6 +29,6 @@ class FakeNewsRemoteDataSource() : NewsRemoteDataSource {
                 )
             )
         )
-        return Response.success(articleResponse)
+        return Either.Right(articleResponse)
     }
 }

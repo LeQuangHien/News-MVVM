@@ -4,6 +4,7 @@ import com.hienle.thenews.model.ArticleResponse
 import com.hienle.thenews.test.util.MainCoroutineRule
 import com.hienle.thenews.test.util.fakes.FakeNewsRemoteDataSource
 import com.hienle.thenews.test.util.runBlockingTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner
  * lequanghien247@gmail.com
  */
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class NewsRepositoryTest {
 
@@ -24,12 +26,10 @@ class NewsRepositoryTest {
     @Test
     fun testGetTopHeadlines_success() = coroutineRule.runBlockingTest {
         val newsRemoteDataSource = FakeNewsRemoteDataSource()
-        val newsRepository = DefaultNewsRepository(newsRemoteDataSource, coroutineRule.testDispatcher)
-        var headlines: ArticleResponse? = null
-        newsRepository.getTopHeadlines().collect {
-            headlines = it.data
-        }
-        val dataSourceHeadline: ArticleResponse? = newsRemoteDataSource.getTopHeadlines().body()
+        val newsRepository =
+            DefaultNewsRepository(newsRemoteDataSource, coroutineRule.testDispatcher)
+        val headlines: ArticleResponse? = newsRepository.getTopHeadlines().orNull()
+        val dataSourceHeadline: ArticleResponse? = newsRemoteDataSource.getTopHeadlines().orNull()
         assert(headlines == dataSourceHeadline)
     }
 }
