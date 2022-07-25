@@ -70,7 +70,7 @@ class NetworkModule {
     ): Retrofit {
         httpClientBuilder.addInterceptor(commonInterceptor)
         return retrofitBuilder
-            .baseUrl(BuildConfig.SERVER_URL)
+            .baseUrl("https://newsapi.org/")
             .client(httpClientBuilder.build())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(EitherCallAdapterFactory())
