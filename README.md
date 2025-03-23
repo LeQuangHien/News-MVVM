@@ -1,2 +1,2 @@
-# TheSchedule
+# News-MVVM
 This project is inspired by [Guide to app architecture](https://developer.android.com/jetpack/guide) and this [post](https://levelup.gitconnected.com/android-basic-app-using-mvvm-hilt-coroutines-flow-retrofit-and-coil-433763542ee0) using REST API from [NewsApi](https://newsapi.org/). The app is designed by using MVVM, Hilt, Kotlin Coroutines, Flow, Retrofit, Lifecycle-Aware, ViewModel along with JUnit and Espresso for unit tests and UI tests. Firebase Test Lab and CircleCi are used for CI/CD. The app is under development and will change accordingly.
